@@ -62,3 +62,31 @@ function dibujarLinea(x1,y1,x2,y2){
     ctx.closePath();
 }
 
+function binarieFilter() {
+    var imgObj = document.getElementById('canvas');
+     
+    var imgW = imgObj.width;
+    var imgH = imgObj.height;
+    var breakPoint= 127;
+     
+    ctx.drawImage(imgObj, 0, 0);
+    var imgPixels = ctx.getImageData(0, 0, imgW, imgH);
+     
+    for(var y = 0; y < imgPixels.height; y++){
+        for(var x = 0; x < imgPixels.width; x++){
+            var i = (y * 4) * imgPixels.width + x * 4;
+            var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+            if(avg>breakPoint){
+                imgPixels.data[i] = 255; 
+                imgPixels.data[i + 1] = 255; 
+                imgPixels.data[i + 2] = 255;
+            }else{
+                imgPixels.data[i] = 0; 
+                imgPixels.data[i + 1] = 0; 
+                imgPixels.data[i + 2] = 0;
+            }
+        }
+    }
+    ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+    return canvas.toDataURL();
+}
