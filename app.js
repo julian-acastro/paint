@@ -48,8 +48,9 @@ function cambiarColor(c){
 function borrar(){
     color = blanco;
 }
-function tamañoCursor(tamaño){
-    cursor=tamaño;
+function anchoCursor(ancho){
+    cursor = ancho.value;
+    document.getElementById("valor").innerHTML=ancho.value;
 }
 
 function dibujarLinea(x1,y1,x2,y2){
