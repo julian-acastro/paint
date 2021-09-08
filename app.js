@@ -1,6 +1,8 @@
 "use strict";
-var canvas=document.getElementById("canvas");
-var ctx=canvas.getContext('2d');
+
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext('2d');
+ctx.lineCap = 'round';//trazo circular
 var rect=canvas.getBoundingClientRect();
 var x=0;
 var y=0;
@@ -9,6 +11,7 @@ var cursor=document.getElementById("cursor");
 var color=document.getElementById("color");
 let goma = document.getElementById("goma");
 let blanco = "#ffffff";
+
 
 canvas.addEventListener('mousedown', function(evento){
     x=evento.clientX - rect.left;
@@ -48,6 +51,7 @@ function borrar(){
 function tamañoCursor(tamaño){
     cursor=tamaño;
 }
+
 function dibujarLinea(x1,y1,x2,y2){
     ctx.beginPath();
     ctx.strokeStyle=color;
