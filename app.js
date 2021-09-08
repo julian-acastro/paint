@@ -4,13 +4,15 @@ var ctx=canvas.getContext('2d');
 var rect=canvas.getBoundingClientRect();
 var x=0;
 var y=0;
-var dibujando= false;
+var dibujando = false;
 var cursor=document.getElementById("cursor");
 var color=document.getElementById("color");
+let goma = document.getElementById("goma");
+let blanco = "#ffffff";
 
 canvas.addEventListener('mousedown', function(evento){
-    x=evento.clientX -rect.left;
-    y=evento.clientY -rect.top;
+    x=evento.clientX - rect.left;
+    y=evento.clientY - rect.top;
     dibujando=true;
 })
 
@@ -21,7 +23,9 @@ canvas.addEventListener('mousemove', function(evento){
         dibujarLinea(x,y,x2,y2);
         x=x2;
         y=y2;
+        
     }  
+
 });
 canvas.addEventListener('mouseup', function(evento){
     if(dibujando===true){
@@ -36,6 +40,10 @@ canvas.addEventListener('mouseup', function(evento){
 
 function cambiarColor(c){
     color=c; 
+}
+
+function borrar(){
+    color = blanco;
 }
 function tamañoCursor(tamaño){
     cursor=tamaño;

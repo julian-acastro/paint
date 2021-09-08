@@ -5,20 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Paint</title>
 </head>
 <body>
     <nav>
         <div>
             <input type="color" name="color" id="color" oninput="cambiarColor(this.value);">
+            <input type="button" name="goma"  id="goma" value="borrar" onclick="borrar(this.value);">
+           
         </div>
         <div>
-            <input type="range" name="cursor" id="cursor" min="1" max="10" value="1" oninput="tamañoCursor(this.value);">
+            <input type="range" name="cursor" id="cursor" min="1" max="20" value="10" oninput="tamañoCursor(this.value);">
         </div>
     </nav>
     <div>
         <canvas id="canvas" width="500" height="500"></canvas>
     </div>
+    
     <script src="app.js"></script>
 </body>
 </html>
