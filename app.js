@@ -1,14 +1,13 @@
 "use strict";
-
+//VARIABLES GLOBALES
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext('2d');
-ctx.lineCap = 'round';//trazo circular
-var rect=canvas.getBoundingClientRect();
-var x=0;
-var y=0;
-var dibujando = false;
-var cursor=document.getElementById("cursor");
-var color=document.getElementById("color");
+let rect=canvas.getBoundingClientRect();//devuelve la posicion del lienzo con respecto a la pantalla
+let x=canvas.clientX;//coordenadas de inicio del canvas
+let y=canvas.clientY;//coordenadas de inicio del canvas
+let dibujando = false;//cuando ha dado click y cuando lo ha soltado
+let cursor=document.getElementById("cursor");
+let color=document.getElementById("color");
 let goma = document.getElementById("goma");
 let blanco = "#ffffff";
 
@@ -47,7 +46,15 @@ function cambiarColor(c){
 
 function borrar(){
     color = blanco;
+   
 }
+
+function clear(){
+    //ctx.clearReact(0, 0, canvas.width, canvas.height);
+    
+}
+
+
 function anchoCursor(ancho){
     cursor = ancho.value;
     document.getElementById("valor").innerHTML=ancho.value;
@@ -55,6 +62,7 @@ function anchoCursor(ancho){
 
 function dibujarLinea(x1,y1,x2,y2){
     ctx.beginPath();
+    ctx.lineCap = 'round';//trazo circular
     ctx.strokeStyle=color;
     ctx.lineWidth=cursor;
     ctx.moveTo(x1,y1);

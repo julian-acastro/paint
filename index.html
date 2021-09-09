@@ -11,9 +11,9 @@
     <nav>
         <div>
             <input type="color" name="color" id="color" oninput="cambiarColor(this.value);">
-            <input type="button" name="lapiz"  id="lapiz" value="Lapiz">
+            <input type="button" name="lapiz"  id="lapiz" value="Lapiz" onclick="cambiarColor(this.value)">
             <input type="button" name="goma"  id="goma" value="Goma" onclick="borrar(this.value);">
-            <input type="button" name="clear"  id="clear" value="Limpiar">
+            <input type="button" name="clear"  id="clear" value="Limpiar" onclick="clear();">
             <input type="button" name="filter" id="filter" onclick="binarieFilter();" value="Blanco y Negro">           
         </div>
         <div>
