@@ -124,9 +124,18 @@ function brightFilter(bright) {
      
     for(var y = 0; y < imgPixels.height; y++){
         for(var x = 0; x < imgPixels.width; x++){
-            var i = (y * 4) * imgPixels.width + x * 4;            
-                imgPixels.data[i] +=  bright; 
-                imgPixels.data[i + 1] +=  bright; 
+            var i = (y * 4) * imgPixels.width + x * 4;
+            if((imgPixels.data[i] +  bright)> 255)
+                imgPixels.data[i] = 255; 
+            else
+                imgPixels.data[i] += bright; 
+            if((imgPixels.data[i + 1] +  bright)> 255)
+                imgPixels.data[i + 1] = 255; 
+            else
+                imgPixels.data[i+ 1] += bright; 
+            if((imgPixels.data[i + 2] +  bright)> 255)
+                imgPixels.data[i + 2] = 255; 
+            else
                 imgPixels.data[i + 2] += bright;
             
         }
