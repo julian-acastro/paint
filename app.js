@@ -1,15 +1,16 @@
 "use strict";
-
+//VARIABLES GLOBALES
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext('2d');
-ctx.lineCap = 'round';//trazo circular
-var rect=canvas.getBoundingClientRect();
-var x=0;
-var y=0;
-var dibujando = false;
-var cursor=document.getElementById("cursor");
-var color=document.getElementById("color");
+let rect=canvas.getBoundingClientRect();//devuelve la posicion del lienzo con respecto a la pantalla
+let x=canvas.clientX;//coordenadas de inicio del canvas
+let y=canvas.clientY;//coordenadas de inicio del canvas
+let dibujando = false;//cuando ha dado click y cuando lo ha soltado
+let cursor=document.getElementById("cursor");
+let color=document.getElementById("color");
 let goma = document.getElementById("goma");
+let limpiar = document.getElementById("clear");
+let lapiz = document.getElementById("lapiz");
 let blanco = "#ffffff";
 
 
@@ -41,19 +42,42 @@ canvas.addEventListener('mouseup', function(evento){
     }
 });
 
+
+
 function cambiarColor(c){
-    color=c; 
+    color=c.value; 
+   
 }
+
+limpiar.addEventListener('click', clear);
+
+function clear() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+
+lapiz.addEventListener('click', usarLapiz);
+
+function usarLapiz(){
+    color = document.getElementById('color').value;
+}
+
+goma.addEventListener('click', borrar);
 
 function borrar(){
     color = blanco;
+  
 }
-function tamañoCursor(tamaño){
-    cursor=tamaño;
+
+function anchoCursor(ancho){
+    cursor = ancho.value;
+    document.getElementById("valor").innerHTML=ancho.value;
 }
+
 
 function dibujarLinea(x1,y1,x2,y2){
     ctx.beginPath();
+    ctx.lineCap = 'round';//trazo circular
     ctx.strokeStyle=color;
     ctx.lineWidth=cursor;
     ctx.moveTo(x1,y1);
