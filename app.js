@@ -12,7 +12,7 @@ let goma = document.getElementById("goma");
 let limpiar = document.getElementById("clear");
 let lapiz = document.getElementById("lapiz");
 let blanco = "#ffffff";
-
+let file = document.getElementById('imageFile');
 
 canvas.addEventListener('mousedown', function(evento){
     x=evento.clientX - rect.left;
@@ -86,6 +86,9 @@ function dibujarLinea(x1,y1,x2,y2){
     ctx.closePath();
 }
 
+
+
+//FILTROS
 function binarieFilter() {
     var imgObj = document.getElementById('canvas');
      
