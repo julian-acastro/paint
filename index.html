@@ -10,14 +10,14 @@
 <body>
     <nav>
         <div>
-            <input type="color" name="color" id="color" oninput="cambiarColor(this.value);">
-            <input type="button" name="lapiz"  id="lapiz" value="Lapiz" onclick="cambiarColor(this.value)">
-            <input type="button" name="goma"  id="goma" value="Goma" onclick="borrar(this.value);">
-            <input type="button" name="clear"  id="clear" value="Limpiar" onclick="clear();">
+            <input type="color" name="color" id="color" oninput="cambiarColor(this);">
+            <input type="button" name="lapiz"  id="lapiz" value="Lapiz" onclick="usarLapiz(this)">
+            <input type="button" name="goma"  id="goma" value="Goma" onclick="borrar(this);">
+            <input type="button" name="clear"  id="clear" value="Limpiar" onclick="clear(this);">
             <input type="button" name="filter" id="filter" onclick="binarieFilter();" value="Blanco y Negro">           
         </div>
         <div>
-            <input type="range" name="cursor" id="cursor" min="1" max="20" value="0" oninput="anchoCursor(this);"><span id="valor">1</span>
+            <input type="range" name="cursor" id="cursor" min="1" max="20" value="1" oninput="anchoCursor(this);"><span id="valor">1</span>
         </div>
     </nav>
     <div>

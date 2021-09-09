@@ -9,6 +9,8 @@ let dibujando = false;//cuando ha dado click y cuando lo ha soltado
 let cursor=document.getElementById("cursor");
 let color=document.getElementById("color");
 let goma = document.getElementById("goma");
+let limpiar = document.getElementById("clear");
+let lapiz = document.getElementById("lapiz");
 let blanco = "#ffffff";
 
 
@@ -40,25 +42,36 @@ canvas.addEventListener('mouseup', function(evento){
     }
 });
 
+
+
 function cambiarColor(c){
-    color=c; 
+    color=c.value; 
+   
+}
+
+
+function clear() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+document.getElementById('clear').addEventListener('click', clear);
+
+
+
+function usarLapiz(c){
+   
+    
 }
 
 function borrar(){
     color = blanco;
-   
+  
 }
-
-function clear(){
-    //ctx.clearReact(0, 0, canvas.width, canvas.height);
-    
-}
-
 
 function anchoCursor(ancho){
     cursor = ancho.value;
     document.getElementById("valor").innerHTML=ancho.value;
 }
+
 
 function dibujarLinea(x1,y1,x2,y2){
     ctx.beginPath();
