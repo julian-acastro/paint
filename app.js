@@ -113,3 +113,23 @@ function binarieFilter() {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
+function brightFilter(bright) {
+    var imgObj = document.getElementById('canvas');
+     
+    var imgW = imgObj.width;
+    var imgH = imgObj.height;
+     
+    ctx.drawImage(imgObj, 0, 0);
+    var imgPixels = ctx.getImageData(0, 0, imgW, imgH);
+     
+    for(var y = 0; y < imgPixels.height; y++){
+        for(var x = 0; x < imgPixels.width; x++){
+            var i = (y * 4) * imgPixels.width + x * 4;            
+                imgPixels.data[i] +=  bright; 
+                imgPixels.data[i + 1] +=  bright; 
+                imgPixels.data[i + 2] += bright;
+            
+        }
+    }
+    ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+}
