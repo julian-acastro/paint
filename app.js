@@ -49,18 +49,20 @@ function cambiarColor(c){
    
 }
 
+limpiar.addEventListener('click', clear);
 
 function clear() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
-document.getElementById('clear').addEventListener('click', clear);
 
 
+lapiz.addEventListener('click', usarLapiz);
 
-function usarLapiz(c){
-   
-    
+function usarLapiz(){
+    color = document.getElementById('color').value;
 }
+
+goma.addEventListener('click', borrar);
 
 function borrar(){
     color = blanco;
