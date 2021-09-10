@@ -12,22 +12,80 @@ let goma = document.getElementById("goma");
 let limpiar = document.getElementById("clear");
 let lapiz = document.getElementById("lapiz");
 let blanco = "#ffffff";
-let file = document.getElementById('imageFile');
 
+let file = document.getElementById('cargarImg');
+var img = new Image();
+
+window.onload = function() {
+    
+    file.addEventListener('change', handleFiles, false);
+    
+    // establecer las dimensiones originales del lienzo como máximo
+  
+    canvas.dataMaxWidth = canvas.width;
+    canvas.dataMaxHeight = canvas.height;
+}
+
+function handleFiles(e) {
+    
+    var reader  = new FileReader();
+    var file = e.target.files[0];
+    // cargar a la imagen para obtener su ancho / alto
+    
+    img.onload = function() {
+        // configurar dimensiones escaladas
+        var scaled = getScaledDim(img, ctx.canvas.dataMaxWidth, ctx.canvas.dataMaxHeight);
+        // escalar lienzo a imagen
+        ctx.canvas.width = scaled.width;
+        ctx.canvas.height = scaled.height;
+        // draw image
+        ctx.drawImage(img, 0, 0
+            , ctx.canvas.width, ctx.canvas.height
+        );
+    }
+    // esto es para configurar la carga de la imagen
+    reader.onloadend = function () {
+        img.src = reader.result;
+    }
+    // esto es para leer el archivo
+    reader.readAsDataURL(file);
+}
+
+// devuelve el objeto de dimensiones escaladas
+function getScaledDim(img, maxWidth, maxHeight) {
+    var scaled = {
+        width: img.width,
+        height: img.height
+    }
+    if (scaled.width > maxWidth) {
+        scaled.width = maxWidth;
+     
+    }
+    if (scaled.height > maxHeight) {
+        scaled.height = maxHeight;
+      
+    }
+    return scaled;
+}
+
+  
 canvas.addEventListener('mousedown', function(evento){
+    
     x=evento.clientX - rect.left;
     y=evento.clientY - rect.top;
     dibujando=true;
+    
 })
 
 canvas.addEventListener('mousemove', function(evento){
+    //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga dibujando
     if(dibujando===true){
         let x2=evento.clientX - rect.left;
         let y2=evento.clientY -rect.top;
         dibujarLinea(x,y,x2,y2);
         x=x2;
         y=y2;
-        
+        console.log("x: " + x2 + " y: " + y2);
     }  
 
 });
