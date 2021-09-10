@@ -12,9 +12,9 @@ let goma = document.getElementById("goma");
 let limpiar = document.getElementById("clear");
 let lapiz = document.getElementById("lapiz");
 let blanco = "#ffffff";
-
 let file = document.getElementById('cargarImg');
 var img = new Image();
+let downloadBtn=document.getElementById("download");
 
 window.onload = function() {
     
@@ -203,3 +203,12 @@ function brightFilter(bright) {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
+downloadBtn.addEventListener('click', function(){
+    var a=document.createElement("a");
+    document.body.appendChild(a)
+    a.href=canvas.toDataURL("image/jpeg");
+    a.download="mi-dibujito.jpg";
+    a.click();
+    document.body.removeChild(a);
+
+})
