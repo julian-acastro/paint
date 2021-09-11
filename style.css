@@ -6,3 +6,24 @@ body{
     text-align: center;
     background-color: #c7ecee;
 }
+.opcion{
+    display:inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    height: 75px;
+    width: 75px;
+    background-color:yellow;
+    border-radius: 100px;
+    border: 5px yellow solid;
+}
+.opcion a{
+    font-size: 40px;
+
+}
+.opcion:hover{
+    scale: 2;
+    background-color: black;
+    color: white;
+    border: 5px yellow solid;
+}
