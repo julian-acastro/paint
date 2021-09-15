@@ -203,6 +203,52 @@ function brightFilter(bright) {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
+
+
+function negativeFilter(){
+    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);//accedo a los pixeles que almacena el imageData en un array 
+    let pixels = imageData.data;//contiene los datos de píxeles del objeto
+    let numPixels = imageData.width * imageData.height;//cantidad de pixeles que componen la imagen
+
+for ( var i = 0; i < numPixels; i++ ) {
+    var r = pixels[ i * 4 ];
+    var g = pixels[ i * 4 + 1 ];
+    var b = pixels[ i * 4 + 2 ];
+
+    pixels[ i * 4 ] = 255 - r;
+    pixels[ i * 4 + 1 ] = 255 - g;
+    pixels[ i * 4 + 2 ] = 255 - b;
+}
+
+ctx.putImageData( imageData, 0, 0 );
+  
+}
+
+function sepiaFilter(){
+    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);//accedo a los pixeles que almacena el imageData en un array 
+    let pixel = imageData.data;//Devuelve un objeto conteniendo todos los datos del objeto ImageData.
+    let numPixels = imageData.width * imageData.height;//cantidad de pixeles que componen la imagen
+
+for ( let i = 0; i < numPixels; i++ ) {
+    let r = pixel[ i * 4 ];
+    let g = pixel[ i * 4 + 1 ];
+    let b = pixel[ i * 4 + 2 ];
+
+    pixel[ i * 4 ] = 255 - r;
+    pixel[ i * 4 + 1 ] = 255 - g;
+    pixel[ i * 4 + 2 ] = 255 - b;
+
+    pixel[ i * 4 ] = ( r * .393 ) + ( g *.769 ) + ( b * .189 );
+    pixel[ i * 4 + 1 ] = ( r * .349 ) + ( g *.686 ) + ( b * .168 );
+    pixel[ i * 4 + 2 ] = ( r * .272 ) + ( g *.534 ) + ( b * .131 );
+}
+
+ctx.putImageData( imageData, 0, 0 );//Pone los datos de la imagen (de un objeto ImageData especificado) de nuevo en el lienzo
+
+   
+}
+
+
 downloadBtn.addEventListener('click', function(){
     var a=document.createElement("a");
     document.body.appendChild(a)
