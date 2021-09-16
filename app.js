@@ -248,6 +248,42 @@ ctx.putImageData( imageData, 0, 0 );//Pone los datos de la imagen (de un objeto 
    
 }
 
+function getRed(imageData, x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+0];
+}
+function getGreen(imageData, x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+1];
+}
+function getBlue(imageData, x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+2];
+}
+
+
+
+function saturationFilter(){
+    let sat = 200;
+    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
+		let x, y, index;
+		for(x = 0; x < imageData.width; x++){
+			for(y = 0; y < imageData.height; y++){
+				let r = getRed(imageData, x, y);
+				let g = getGreen(imageData, x, y);
+				let b = getBlue(imageData, x, y);
+				index = (x + y * imageData.width) * 4;
+				let factor = (259*(sat+255))/(255*(259-sat));
+				imageData.data[index+0] = factor*(r-128)+128;
+				imageData.data[index+1] = factor*(g-128)+128;
+				imageData.data[index+2] = factor*(b-128)+128;
+			}
+		}
+		ctx.putImageData(imageData, 0, 0);		
+
+    
+}
+
 
 downloadBtn.addEventListener('click', function(){
     var a=document.createElement("a");

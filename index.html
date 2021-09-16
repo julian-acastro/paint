@@ -8,6 +8,7 @@
     <title>Paint</title>
 </head>
 <body>
+    
     <nav>
         <div class="opcion" id="lapiz" onclick="usarLapiz(this);">
             <a > <i class="fas fa-pen"></i></a>
@@ -35,7 +36,8 @@
             <input type="button" name="binarieFilter" id="binarieFilter" onclick="binarieFilter();" value="Blanco y Negro">           
             <input type="button" name="brightFilter" id="brightFilter" onclick="brightFilter(10);" value="Brillo">
             <input type="button" name="sepiaFilter" id="sepiaFilter" onclick="sepiaFilter();" value="Sepia"> 
-            <input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();" value="Negativo">                
+            <input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();" value="Negativo"> 
+            <input type="button" name="saturationFilter" id="saturationFilter" onclick="saturationFilter();" value="Saturacion">                
             <!-- <input type="button" name="download" id="download" value="Descargar">            -->
         </div>
         <div>
@@ -71,7 +73,7 @@
             </div>
             
         </div>
-    </div>
+    </div> 
        
     <div>
         <canvas id="canvas" width="500" height="500"></canvas>

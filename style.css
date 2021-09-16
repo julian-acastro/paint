@@ -1,11 +1,14 @@
 #canvas{
-    border: solid 2px black;
+    border: solid 1px black;
     background-color: white;
 }
 
 body{
+    background-color: white;
+    background-size: 30px 30px;
+    background-image: linear-gradient(to right, rgb(118, 215, 196) 1px, transparent 1px), linear-gradient(to bottom, rgb(118, 215, 196) 1px, transparent 1px);
     text-align: center;
-    background-color: #c7ecee;
+    
 }
 
 .opcion{
