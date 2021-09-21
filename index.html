@@ -8,43 +8,37 @@
     <title>Paint</title>
 </head>
 <body>
-    
-    <nav>
-        <div class="opcion" id="lapiz" onclick="usarLapiz(this);">
-            <a > <i class="fas fa-pen"></i></a>
-            <label for="">Lapiz</label>
-        </div>
-        <div class="opcion" id="goma" onclick="borrar(this);">
-            <a ><i class="fas fa-eraser"></i></a>
-            <label>Goma</label>
-        </div>
-
-        <div class="opcion" id="clear" onclick="clear(this);">
-            <a ><i class="fas fa-save"></i></a>
-            <label>Limpiar</label>
-        </div>
-        <div class="opcion" id="download">
-            <a ><i class="fas fa-paint-roller"></i></a>
-            <label>Guardar</label>
-        </div>
-
-        <div>
-            <input  type="color" name="color" id="color" oninput="cambiarColor(this);">
+    <nav id="navbar">
+    <div class="container">
+        <ul>
+            
+            <li><input  type="color" name="color" id="color" value="#ffffff" oninput="cambiarColor(this);"></li>
+            <li><input  type="button" name="lapiz" id="lapiz" value= "Lapiz" onclick="usarLapiz(this);"></li>
+            <li><input  type="button" name="goma" id="goma" value= "Goma"  onclick="borrar(this);"></li>
+            <li><input  type="button" name="limpiar" value= "Limpiar"  id="clear" onclick="clear(this);"></li>
+            <li><input  type="button" name="guardar" value= "Guardar"  id="download"></li>
+            
             <!-- <input type="button" name="lapiz"  id="lapiz" value="Lapiz" onclick="usarLapiz(this)"> -->
             <!-- <input type="button" name="goma"  id="goma" value="Goma" onclick="borrar(this);"> -->
             <!-- <input type="button" name="clear"  id="clear" value="Limpiar" onclick="clear(this);"> -->
-            <input type="button" name="binarieFilter" id="binarieFilter" onclick="binarieFilter();" value="Blanco y Negro">           
-            <input type="button" name="brightFilter" id="brightFilter" onclick="brightFilter(10);" value="Brillo">
-            <input type="button" name="sepiaFilter" id="sepiaFilter" onclick="sepiaFilter();" value="Sepia"> 
-            <input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();" value="Negativo"> 
-            <input type="button" name="saturationFilter" id="saturationFilter" onclick="saturationFilter();" value="Saturacion">                
+            <li><input type="button" name="binarieFilter" id="binarieFilter" onclick="binarieFilter();" value="Blanco y Negro"></li>           
+            <li><input type="button" name="brightFilter" id="brightFilter" onclick="brightFilter(10);" value="Brillo"></li>
+            <li><input type="button" name="sepiaFilter" id="sepiaFilter" onclick="sepiaFilter();" value="Sepia"> </li>
+            <li><input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();" value="Negativo"> </li>
+            <li><input type="button" name="saturationFilter" id="saturationFilter" onclick="saturationFilter();" value="Saturacion"> </li> 
+                          
             <!-- <input type="button" name="download" id="download" value="Descargar">            -->
-        </div>
+
+        </ul>
+    </div>
+        </nav>
+   
+
         <div>
             <input type="range" name="cursor" id="cursor" min="1" max="20" value="1" oninput="anchoCursor(this);"><span id="valor">1</span>
         </div>
-    </nav>
-    <div class="lateralIzquierdo">
+    
+   <!--  <div class="lateralIzquierdo">
         <h1>Filtros</h1>
         <div class="filtrosCaja">
             <div class="cartaFiltro">
@@ -74,7 +68,7 @@
             
         </div>
     </div> 
-       
+        -->
     <div>
         <canvas id="canvas" width="500" height="500"></canvas>
     </div>
@@ -84,6 +78,7 @@
         </p>
     </div>
     <script src="app.js"></script>
+    <script src="filters.js"></script>
     <script src="https://kit.fontawesome.com/6351d61735.js" crossorigin="anonymous"></script>
 </body>
 </html>

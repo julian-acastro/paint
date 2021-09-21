@@ -4,14 +4,59 @@
 }
 
 body{
+    margin: 0;
+    padding: 0;
     background-color: white;
     background-size: 30px 30px;
-    background-image: linear-gradient(to right, rgb(118, 215, 196) 1px, transparent 1px), linear-gradient(to bottom, rgb(118, 215, 196) 1px, transparent 1px);
-    text-align: center;
-    
+    background-image: linear-gradient(to right, rgb(168, 231, 233) 1px, transparent 1px), linear-gradient(to bottom, rgb(177, 255, 253) 1px, transparent 1px);
+    text-align: center; 
+    font-family: helvetica, sans-serif;
 }
+.container {
+    margin: auto;
+    max-width: 1100px;
+    overflow: auto;
+    padding: 0 20px;
+  }
+  
+  #navbar {
+    display: flex;
+    height: 55px;
+    align-items: center;
+    padding-bottom: 15px;
+   
+    background-color:rgb(236, 156, 211);
+  }
+  
+  #navbar ul {
+    list-style: none;
+    float: none;
+  }
+  
+  #navbar ul li {
+    float: left;
+    display: block;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  button, input[type="button"], input[type=file]{
+    background-color: rgb(177, 230, 147);
+    border: none;
+    color: black;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    cursor: pointer;
 
-.opcion{
+  }
+
+  input[type=button]:hover {
+    background-color:rgba(255, 255, 255);
+}
+/* .opcion{
     display:inline-flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -31,8 +76,8 @@ body{
     background-color: black;
     color: white;
     border: 5px yellow solid;
-}
-.lateralIzquierdo{
+} */
+/* .lateralIzquierdo{
     position: absolute;
     left:0;
     bottom:0;
@@ -59,4 +104,4 @@ body{
 }
 .cartaFiltro label{
     width: 50%;
-}
+} */
