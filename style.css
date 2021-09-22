@@ -1,9 +1,8 @@
-#canvas{
+  #canvas{
     border: solid 1px black;
     background-color: white;
-}
-
-body{
+  }
+  body{
     margin: 0;
     padding: 0;
     background-color: white;
@@ -11,38 +10,27 @@ body{
     background-image: linear-gradient(to right, rgb(168, 231, 233) 1px, transparent 1px), linear-gradient(to bottom, rgb(177, 255, 253) 1px, transparent 1px);
     text-align: center; 
     font-family: helvetica, sans-serif;
-}
-.container {
-    margin: auto;
-    max-width: 1100px;
-    overflow: auto;
-    padding: 0 20px;
   }
-  
   #navbar {
     display: flex;
-    height: 55px;
-    align-items: center;
-    padding-bottom: 15px;
-   
+    height: 50px;
+    text-align:center;
+    padding-bottom: 10px;
     background-color:rgb(236, 156, 211);
   }
-  
   #navbar ul {
     list-style: none;
     float: none;
-  }
-  
+  } 
   #navbar ul li {
-    float: left;
-    display: block;
+    display:inline;
     padding: 5px;
     text-align: center;
-  }
-  
+  } 
   button, input[type="button"], input[type=file]{
     background-color: rgb(177, 230, 147);
     border: none;
+    border-radius: 5px;
     color: black;
     padding: 5px;
     text-align: center;
@@ -50,58 +38,10 @@ body{
     display: inline-block;
     font-size: 15px;
     cursor: pointer;
-
   }
-
   input[type=button]:hover {
-    background-color:rgba(255, 255, 255);
-}
-/* .opcion{
-    display:inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 10px;
-    height: 75px;
-    width: 75px;
-    background-color:yellow;
-    border-radius: 100px;
-    border: 5px yellow solid;
-}
-.opcion a{
-    font-size: 40px;
-
-}
-.opcion:hover{
-    scale: 2;
-    background-color: black;
-    color: white;
-    border: 5px yellow solid;
-} */
-/* .lateralIzquierdo{
-    position: absolute;
-    left:0;
-    bottom:0;
-    top: 0;
-    width: 20vw;
-    background-color: yellow;
-    display: inline-block; 
-    padding: 10px;
-    align-content: center;
-}
-
-.cartaFiltro{
-    display: flex;
-    width: 100%;
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    align-items:center;
-    padding: 5px;
-    font-size: 25px;
-}
-.icono{
-    width: 70px;
-    height: 70px;
-    background:white;
-}
-.cartaFiltro label{
-    width: 50%;
-} */
+    
+    background: white;
+    color: rgb(177, 230, 147);
+    border: rgb(177, 230, 147);
+  }

@@ -1,8 +1,8 @@
 "use strict";
 //VARIABLES GLOBALES
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext('2d');
-let rect=canvas.getBoundingClientRect();//devuelve la posicion del lienzo con respecto a la pantalla
+let canvas = document.getElementById("canvas");//regresa el nodo DOM para el elemento <canvas>
+let ctx = canvas.getContext('2d');//acceder al contexto de dibujo 
+let rect=canvas.getBoundingClientRect();// devuelve el tamaño del canvas y su posición relativa respecto a la ventana de visualización 
 let x=canvas.clientX;//coordenadas de inicio del canvas
 let y=canvas.clientY;//coordenadas de inicio del canvas
 let dibujando = false;//cuando ha dado click y cuando lo ha soltado
@@ -85,7 +85,6 @@ canvas.addEventListener('mousemove', function(evento){
         dibujarLinea(x,y,x2,y2);
         x=x2;
         y=y2;
-        console.log("x: " + x2 + " y: " + y2);
     }  
 
 });
@@ -99,8 +98,6 @@ canvas.addEventListener('mouseup', function(evento){
         dibujando=false;
     }
 });
-
-
 
 function cambiarColor(c){
     color=c.value; 
@@ -215,6 +212,7 @@ for ( var i = 0; i < numPixels; i++ ) {
     var g = pixels[ i * 4 + 1 ];
     var b = pixels[ i * 4 + 2 ];
 
+    //Cambiar cada componente de un color al valor opuesto de la escala de color.
     pixels[ i * 4 ] = 255 - r;
     pixels[ i * 4 + 1 ] = 255 - g;
     pixels[ i * 4 + 2 ] = 255 - b;

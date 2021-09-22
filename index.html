@@ -1,84 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Paint</title>
-</head>
-<body>
-    <nav id="navbar">
-    <div class="container">
-        <ul>
-            
-            <li><input  type="color" name="color" id="color" value="#ffffff" oninput="cambiarColor(this);"></li>
-            <li><input  type="button" name="lapiz" id="lapiz" value= "Lapiz" onclick="usarLapiz(this);"></li>
-            <li><input  type="button" name="goma" id="goma" value= "Goma"  onclick="borrar(this);"></li>
-            <li><input  type="button" name="limpiar" value= "Limpiar"  id="clear" onclick="clear(this);"></li>
-            <li><input  type="button" name="guardar" value= "Guardar"  id="download"></li>
-            
-            <!-- <input type="button" name="lapiz"  id="lapiz" value="Lapiz" onclick="usarLapiz(this)"> -->
-            <!-- <input type="button" name="goma"  id="goma" value="Goma" onclick="borrar(this);"> -->
-            <!-- <input type="button" name="clear"  id="clear" value="Limpiar" onclick="clear(this);"> -->
-            <li><input type="button" name="binarieFilter" id="binarieFilter" onclick="binarieFilter();" value="Blanco y Negro"></li>           
-            <li><input type="button" name="brightFilter" id="brightFilter" onclick="brightFilter(10);" value="Brillo"></li>
-            <li><input type="button" name="sepiaFilter" id="sepiaFilter" onclick="sepiaFilter();" value="Sepia"> </li>
-            <li><input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();" value="Negativo"> </li>
-            <li><input type="button" name="saturationFilter" id="saturationFilter" onclick="saturationFilter();" value="Saturacion"> </li> 
-                          
-            <!-- <input type="button" name="download" id="download" value="Descargar">            -->
-
-        </ul>
-    </div>
-        </nav>
-   
-
-        <div>
-            <input type="range" name="cursor" id="cursor" min="1" max="20" value="1" oninput="anchoCursor(this);"><span id="valor">1</span>
-        </div>
-    
-   <!--  <div class="lateralIzquierdo">
-        <h1>Filtros</h1>
-        <div class="filtrosCaja">
-            <div class="cartaFiltro">
-                <div class="icono">
-                    
-                </div>
-                <label> Blanco y Negro </label>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Paint</title>
+    </head>
+        <body>
+            <nav id="navbar">
+                <ul>
+                    <li><input type="color" name="color" id="color" value="#000000" oninput="cambiarColor(this);"></li>
+                    <li><input type="button" name="lapiz" id="lapiz" value="Lapiz" onclick="usarLapiz(this);"></li>
+                    <li><input type="button" name="goma" id="goma" value="Goma" onclick="borrar(this);"></li>
+                    <li><input type="button" name="limpiar" value="Limpiar" id="clear" onclick="clear(this);"></li>
+                    <li><input type="button" name="guardar" value="Guardar" id="download"></li>
+                    <li><input type="button" name="binarieFilter" id="binarieFilter" onclick="binarieFilter();"value="Blanco y Negro"></li>
+                    <li><input type="button" name="brightFilter" id="brightFilter" onclick="brightFilter(10);"value="Brillo"></li>
+                    <li><input type="button" name="sepiaFilter" id="sepiaFilter" onclick="sepiaFilter();" value="Sepia"></li>
+                    <li><input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();"value="Negativo"> </li>
+                    <li><input type="button" name="saturationFilter" id="saturationFilter" onclick="saturationFilter();"value="Saturacion"> </li>
+                </ul>                
+            </nav>
+            <div>
+                <input type="range" name="cursor" id="cursor" min="1" max="20" value="1" oninput="anchoCursor(this);"><span id="valor">1</span>
             </div>
-            <div class="cartaFiltro">
-                <div class="icono">
-                    
-                </div>
-                <label> Blanco y Negro </label>
+            <div>
+                <canvas id="canvas" width="500" height="500"></canvas>
             </div>
-            <div class="cartaFiltro">
-                <div class="icono">
-                    
-                </div>
-                <label> Blanco y Negro </label>
+            <div>
+                Sube una imagen: <input type="file" id="cargarImg" accept=".jpg, .jpeg, .png" />
             </div>
-            <div class="cartaFiltro">
-                <div class="icono">
-                    
-                </div>
-                <label> Blanco y Negro </label>
-            </div>
-            
-        </div>
-    </div> 
-        -->
-    <div>
-        <canvas id="canvas" width="500" height="500"></canvas>
-    </div>
-    <div> 
-        <p>
-            Sube una imagen: <input type="file" id="cargarImg" accept=".jpg, .jpeg, .png" />
-        </p>
-    </div>
-    <script src="app.js"></script>
-    <script src="filters.js"></script>
-    <script src="https://kit.fontawesome.com/6351d61735.js" crossorigin="anonymous"></script>
-</body>
+        <script src="app.js"></script>
+        </body>
 </html>
