@@ -3,9 +3,9 @@
 let canvas = document.getElementById("canvas");//regresa el nodo DOM para el elemento <canvas>
 let ctx = canvas.getContext('2d');//acceder al contexto de dibujo 
 let rect=canvas.getBoundingClientRect();// devuelve el tamaño del canvas y su posición relativa respecto a la ventana de visualización 
-let x=0;//coordenadas de inicio del canvas
-let y=0;//coordenadas de inicio del canvas
-let dibujando = false;//cuando ha dado click y cuando lo ha soltado
+let x=0;
+let y=0;
+let dibujando = false;
 let cursor=document.getElementById("cursor");
 let color=document.getElementById("color");
 let goma = document.getElementById("goma");
@@ -56,11 +56,11 @@ function getScaledDim(img, maxWidth, maxHeight) {
         height: img.height
     }
     if (scaled.width > maxWidth) {
-        scaled.width = maxWidth;
+         maxWidth = scaled.width;
      
     }
     if (scaled.height > maxHeight) {
-        scaled.height = maxHeight;
+        maxHeight =scaled.height;
       
     }
     return scaled;
@@ -141,6 +141,20 @@ function dibujarLinea(x1,y1,x2,y2){
 }
 
 //FILTROS se deben aplicar a la imagen original?
+
+function getRed(imageData, x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+0];
+}
+function getGreen(imageData, x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+1];
+}
+function getBlue(imageData, x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+2];
+}
+
 function binarieFilter() {
     var imgObj = document.getElementById('canvas');
      
@@ -202,9 +216,9 @@ function brightFilter(bright) {
 function negativeFilter(){
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);//accedo a los pixeles que almacena el imageData en un array 
     let pixels = imageData.data;//contiene los datos de píxeles del objeto
-    let numPixels = imageData.width * imageData.height;//cantidad de pixeles que componen la imagen
+    let numPixels = imageData.width * imageData.height;//total de píxeles que componen nuestra imagen (resultado de multiplicar la anchura de nuestra imagen por su altura)
 
-for ( var i = 0; i < numPixels; i++ ) {
+for ( var i = 0; i < numPixels; i++ ) {//iterar por cada pixel y sus tres valores rgb asociados
     var r = pixels[ i * 4 ];
     var g = pixels[ i * 4 + 1 ];
     var b = pixels[ i * 4 + 2 ];
@@ -252,7 +266,7 @@ function blackAndWhite() {
         let g = pixels[ i * 4 + 1 ];
         let b = pixels[ i * 4 + 2 ];
  
-        let grey = ( r + g + b ) / 3;
+        let grey = ( r + g + b ) / 3;//promedio de los valores de rgb originales
  
         pixels[ i * 4 ] = grey;
         pixels[ i * 4 + 1 ] = grey;
@@ -262,23 +276,8 @@ function blackAndWhite() {
     ctx.putImageData( imageData, 0, 0 );
 };
 
-function getRed(imageData, x, y) {
-    let index = (x + y * imageData.width) * 4;
-    return imageData.data[index+0];
-}
-function getGreen(imageData, x, y) {
-    let index = (x + y * imageData.width) * 4;
-    return imageData.data[index+1];
-}
-function getBlue(imageData, x, y) {
-    let index = (x + y * imageData.width) * 4;
-    return imageData.data[index+2];
-}
-
-
-
 function saturationFilter(){
-    let sat = 200;
+    let sat = 100;
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
 		let x, y, index;
 		for(x = 0; x < imageData.width; x++){
