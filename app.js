@@ -3,8 +3,8 @@
 let canvas = document.getElementById("canvas");//regresa el nodo DOM para el elemento <canvas>
 let ctx = canvas.getContext('2d');//acceder al contexto de dibujo 
 let rect=canvas.getBoundingClientRect();// devuelve el tamaño del canvas y su posición relativa respecto a la ventana de visualización 
-let x=canvas.clientX;//coordenadas de inicio del canvas
-let y=canvas.clientY;//coordenadas de inicio del canvas
+let x=0;//coordenadas de inicio del canvas
+let y=0;//coordenadas de inicio del canvas
 let dibujando = false;//cuando ha dado click y cuando lo ha soltado
 let cursor=document.getElementById("cursor");
 let color=document.getElementById("color");
@@ -28,20 +28,18 @@ window.onload = function() {
 
 function handleFiles(e) {
     
-    var reader  = new FileReader();
-    var file = e.target.files[0];
+    let reader  = new FileReader();
+    let file = e.target.files[0];
     // cargar a la imagen para obtener su ancho / alto
     
     img.onload = function() {
         // configurar dimensiones escaladas
-        var scaled = getScaledDim(img, ctx.canvas.dataMaxWidth, ctx.canvas.dataMaxHeight);
+        let scaled = getScaledDim(img, ctx.canvas.dataMaxWidth, ctx.canvas.dataMaxHeight);
         // escalar lienzo a imagen
         ctx.canvas.width = scaled.width;
         ctx.canvas.height = scaled.height;
         // draw image
-        ctx.drawImage(img, 0, 0
-            , ctx.canvas.width, ctx.canvas.height
-        );
+        ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
     }
     // esto es para configurar la carga de la imagen
     reader.onloadend = function () {
@@ -53,7 +51,7 @@ function handleFiles(e) {
 
 // devuelve el objeto de dimensiones escaladas
 function getScaledDim(img, maxWidth, maxHeight) {
-    var scaled = {
+    let scaled = {
         width: img.width,
         height: img.height
     }
@@ -108,6 +106,7 @@ limpiar.addEventListener('click', clear);
 
 function clear() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("cargarImg").value = "";
   }
 
 
@@ -141,9 +140,7 @@ function dibujarLinea(x1,y1,x2,y2){
     ctx.closePath();
 }
 
-
-
-//FILTROS
+//FILTROS se deben aplicar a la imagen original?
 function binarieFilter() {
     var imgObj = document.getElementById('canvas');
      
@@ -243,8 +240,27 @@ for ( let i = 0; i < numPixels; i++ ) {
 
 ctx.putImageData( imageData, 0, 0 );//Pone los datos de la imagen (de un objeto ImageData especificado) de nuevo en el lienzo
 
-   
 }
+
+function blackAndWhite() {
+        let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
+        let pixels = imageData.data;
+        let numPixels = imageData.width * imageData.height;
+ 
+    for ( var i = 0; i < numPixels; i++ ) {
+        let r = pixels[ i * 4 ];
+        let g = pixels[ i * 4 + 1 ];
+        let b = pixels[ i * 4 + 2 ];
+ 
+        let grey = ( r + g + b ) / 3;
+ 
+        pixels[ i * 4 ] = grey;
+        pixels[ i * 4 + 1 ] = grey;
+        pixels[ i * 4 + 2 ] = grey;
+    }
+ 
+    ctx.putImageData( imageData, 0, 0 );
+};
 
 function getRed(imageData, x, y) {
     let index = (x + y * imageData.width) * 4;
@@ -278,8 +294,6 @@ function saturationFilter(){
 			}
 		}
 		ctx.putImageData(imageData, 0, 0);		
-
-    
 }
 
 

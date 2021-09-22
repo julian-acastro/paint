@@ -18,15 +18,10 @@
     padding-bottom: 10px;
     background-color:rgb(236, 156, 211);
   }
-  #navbar ul {
+  li{
+    display: inline-block;
     list-style: none;
-    float: none;
-  } 
-  #navbar ul li {
-    display:inline;
-    padding: 5px;
-    text-align: center;
-  } 
+  }
   button, input[type="button"], input[type=file]{
     background-color: rgb(177, 230, 147);
     border: none;
@@ -40,7 +35,6 @@
     cursor: pointer;
   }
   input[type=button]:hover {
-    
     background: white;
     color: rgb(177, 230, 147);
     border: rgb(177, 230, 147);
