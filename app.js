@@ -294,7 +294,22 @@ function saturationFilter(){
 		}
 		ctx.putImageData(imageData, 0, 0);		
 }
-
+function blurFilter() {
+    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let r, g, b;
+    for (let x = 1; x < canvas.width - 1; x++) {
+        for (let y = 1; y < canvas.height - 1; y++) {
+            var i = (y * 4) * imageData.width + x * 4;
+            r = Math.floor((getRed(imageData, x, y) + getRed(imageData, x - 1, y) + getRed(imageData, x + 1, y) + getRed(imageData, x - 1, y + 1) + getRed(imageData, x - 1, y - 1) + getRed(imageData, x, y + 1) + getRed(imageData, x, y - 1) + getRed(imageData, x + 1, y + 1) + getRed(imageData, x + 1, y - 1)) / 9);
+            g = Math.floor((getGreen(imageData, x, y) + getGreen(imageData, x - 1, y) + getGreen(imageData, x + 1, y) + getGreen(imageData, x - 1, y + 1) + getGreen(imageData, x - 1, y - 1) + getGreen(imageData, x, y + 1) + getGreen(imageData, x, y - 1) + getGreen(imageData, x + 1, y + 1) + getGreen(imageData, x + 1, y - 1)) / 9);
+            b = Math.floor((getBlue(imageData, x, y) + getBlue(imageData, x - 1, y) + getBlue(imageData, x + 1, y) + getBlue(imageData, x - 1, y + 1) + getBlue(imageData, x - 1, y - 1) + getBlue(imageData, x, y + 1) + getBlue(imageData, x, y - 1) + getBlue(imageData, x + 1, y + 1) + getBlue(imageData, x + 1, y - 1)) / 9);
+            imageData.data[i]=r;
+            imageData.data[i+1]=g;
+            imageData.data[i+2]=b;
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
 
 downloadBtn.addEventListener('click', function(){
     var a=document.createElement("a");
