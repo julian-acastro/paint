@@ -72,14 +72,14 @@ function getScaledDim(img, maxWidth, maxHeight) {
 
   
 canvas.addEventListener('mousedown', function(evento){
-    
+    rect=canvas.getBoundingClientRect();
     x=evento.clientX - rect.left;
     y=evento.clientY - rect.top;
     dibujando=true;
-    
 })
 
 canvas.addEventListener('mousemove', function(evento){
+    rect=canvas.getBoundingClientRect();
     //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga dibujando
     if(dibujando===true){
         let x2=evento.clientX - rect.left;
@@ -91,6 +91,7 @@ canvas.addEventListener('mousemove', function(evento){
 
 });
 canvas.addEventListener('mouseup', function(evento){
+    rect=canvas.getBoundingClientRect();
     if(dibujando===true){
         let x2=evento.clientX - rect.left;
         let y2=evento.clienty -rect.top;
