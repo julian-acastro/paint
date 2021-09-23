@@ -56,13 +56,13 @@ function getScaledDim(img, maxWidth, maxHeight) {
         height: img.height
     }
     
-    if (scaled.width > maxWidth) {
-         maxWidth = scaled.width;
-     
+    if (scaled.height > maxHeight) {//si el alto de la img es mayor al alto del canvas       
+        if (scaled.width > maxWidth) {//si el ancho de la img es mayor al ancho del canvas
+
+        scaled.width = (scaled.width * maxHeight) / scaled.height; 
+        scaled.height=maxHeight;
     }
-    if (scaled.height > maxHeight) {
-        scaled.height=maxHeight;    
-    }
+}
     return scaled;
 }
 
