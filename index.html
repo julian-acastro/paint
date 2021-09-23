@@ -10,28 +10,28 @@
         <body>
             <nav id="navbar">
                 <ul>
-                    <li><input type="color" name="color" id="color" value="#000000" oninput="cambiarColor(this);"></li>
-                    <li><input type="button" name="lapiz" id="lapiz" value="Lapiz" onclick="usarLapiz(this);"></li>
-                    <li><input type="button" name="goma" id="goma" value="Goma" onclick="borrar(this);"></li>
-                    <li><input type="button" name="limpiar" value="Limpiar" id="clear" onclick="clear(this);"></li>
-                    <li><input type="button" name="guardar" value="Guardar" id="download"></li>
-                    <li><input type="button" name="binarieFilter" id="binarieFilter" onclick="binarieFilter();"value="Binario"></li>
-                    <li><input type="button" name="blackWhiteFilter" id="blackWhiteFilter" onclick="blackAndWhite();"value="Blanco y Negro"></li>
-                    <li><input type="button" name="brightFilter" id="brightFilter" onclick="brightFilter(10);"value="Brillo"></li>
-                    <li><input type="button" name="sepiaFilter" id="sepiaFilter" onclick="sepiaFilter();" value="Sepia"></li>
-                    <li><input type="button" name="negativeFilter" id="negativeFilter" onclick="negativeFilter();"value="Negativo"> </li>
-                    <li><input type="button" name="saturationFilter" id="saturationFilter" onclick="saturationFilter();"value="Saturacion"> </li>
-                    <li><input type="button" name="blurFilter" onclick="blurFilter();"value="Blur"> </li>
+                    <li><input type="color" name="color" value="#000000" id="color" oninput="cambiarColor(this);"></li>
+                    <li><input type="button" name="pencil" value="Lapiz" id="pencil" onclick="usarLapiz(this);"></li>
+                    <li><input type="button" name="rubber"  value="Goma" id="rubber" onclick="borrar(this);"></li>
+                    <li><input type="button" name="clear" value="Limpiar" id="clear" onclick="clear(this);"></li>
+                    <li><input type="button" name="saveFile" value="Guardar" id="download"></li>
+                    <li><input type="button" name="binarieFilter" value="Binario" id="binarieFilter" onclick="binarieFilter();"></li>
+                    <li><input type="button" name="blackWhiteFilter" value="Blanco y Negro" id="blackWhiteFilter" onclick="blackAndWhite();"></li>
+                    <li><input type="button" name="brightFilter" value="Brillo" id="brightFilter" onclick="brightFilter(10);"></li>
+                    <li><input type="button" name="sepiaFilter" value="Sepia" id="sepiaFilter" onclick="sepiaFilter();"></li>
+                    <li><input type="button" name="negativeFilter" value="Negativo" id="negativeFilter" onclick="negativeFilter();"></li>
+                    <li><input type="button" name="saturationFilter" value="Saturacion" id="saturationFilter" onclick="saturationFilter();"value="Saturacion"> </li>
+                    <li><input type="button" name="blurFilter" value="Blur" onclick="blurFilter();"></li>
                 </ul>                
             </nav>
             <div class="range">
-                <input type="range" name="cursor" id="cursor" min="1" max="20" value="1" oninput="anchoCursor(this);"><span id="valor">1</span>
+                <input type="range" name="cursor" id="cursor" min="1" max="20" value="1" oninput="lineWidth(this);"><span id="value">1</span>
             </div>
             <div>
                 <canvas id="canvas" width="500" height="500"></canvas>
             </div>
             <div>
-                Sube una imagen: <input type="file" id="cargarImg" accept=".jpg, .jpeg, .png" />
+                Sube una imagen: <input type="file" id="upload" accept=".jpg, .jpeg, .png" />
             </div>
         <script src="app.js"></script>
         </body>

@@ -5,14 +5,14 @@ let ctx = canvas.getContext('2d');//acceder al contexto de dibujo
 let rect=canvas.getBoundingClientRect();// devuelve el tamaño del canvas y su posición relativa respecto a la ventana de visualización 
 let x=0;
 let y=0;
-let dibujando = false;
+let drawing = false;
 let cursor=document.getElementById("cursor");
 let color=document.getElementById("color");
-let goma = document.getElementById("goma");
-let limpiar = document.getElementById("clear");
-let lapiz = document.getElementById("lapiz");
-let blanco = "#ffffff";
-let file = document.getElementById('cargarImg');
+let rubber = document.getElementById("rubber");
+let clear = document.getElementById("clear");
+let pencil = document.getElementById("pencil");
+let white = "#ffffff";
+let file = document.getElementById('upload');
 var img = new Image();
 let downloadBtn=document.getElementById("download");
 
@@ -30,7 +30,7 @@ function handleFiles(e) {
     
     let reader  = new FileReader();
     let file = e.target.files[0];
-    // cargar a la imagen para obtener su ancho / alto
+    // cargar a la imagen para obtener su wide / alto
     
     img.onload = function() {
         // configurar dimensiones escaladas
@@ -57,7 +57,7 @@ function getScaledDim(img, maxWidth, maxHeight) {
     }
     
     if (scaled.height > maxHeight) {//si el alto de la img es mayor al alto del canvas       
-        if (scaled.width > maxWidth) {//si el ancho de la img es mayor al ancho del canvas
+        if (scaled.width > maxWidth) {//si el wide de la img es mayor al wide del canvas
 
         scaled.width = (scaled.width * maxHeight) / scaled.height; 
         scaled.height=maxHeight;
@@ -75,16 +75,16 @@ canvas.addEventListener('mousedown', function(evento){
     rect=canvas.getBoundingClientRect();
     x=evento.clientX - rect.left;
     y=evento.clientY - rect.top;
-    dibujando=true;
+    drawing=true;
 })
 
 canvas.addEventListener('mousemove', function(evento){
     rect=canvas.getBoundingClientRect();
-    //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga dibujando
-    if(dibujando===true){
+    //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga drawing
+    if(drawing===true){
         let x2=evento.clientX - rect.left;
         let y2=evento.clientY -rect.top;
-        dibujarLinea(x,y,x2,y2);
+        drawLine(x,y,x2,y2);
         x=x2;
         y=y2;
     }  
@@ -92,49 +92,49 @@ canvas.addEventListener('mousemove', function(evento){
 });
 canvas.addEventListener('mouseup', function(evento){
     rect=canvas.getBoundingClientRect();
-    if(dibujando===true){
+    if(drawing===true){
         let x2=evento.clientX - rect.left;
         let y2=evento.clienty -rect.top;
-        dibujarLinea(x,y,x2,y2);
+        drawLine(x,y,x2,y2);
         x=0;
         y=0;
-        dibujando=false;
+        drawing=false;
     }
 });
 
-function cambiarColor(c){
+function changeColor(c){
     color=c.value; 
    
 }
 
-limpiar.addEventListener('click', clear);
+clear.addEventListener('click',cleanUp);
 
-function clear() {
+function cleanUp() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    document.getElementById("cargarImg").value = "";
+    document.getElementById("upload").value = "";  
   }
 
 
-lapiz.addEventListener('click', usarLapiz);
+pencil.addEventListener('click', usePencil);
 
-function usarLapiz(){
+function usePencil(){
     color = document.getElementById('color').value;
 }
 
-goma.addEventListener('click', borrar);
+rubber.addEventListener('click', erase);
 
-function borrar(){
-    color = blanco;
+function erase(){
+    color = white;
   
 }
 
-function anchoCursor(ancho){
-    cursor = ancho.value;
-    document.getElementById("valor").innerHTML=ancho.value;
+function lineWidth(wide){
+    cursor = wide.value;
+    document.getElementById("value").innerHTML=wide.value;
 }
 
 
-function dibujarLinea(x1,y1,x2,y2){
+function drawLine(x1,y1,x2,y2){
     ctx.beginPath();
     ctx.lineCap = 'round';//trazo circular
     ctx.strokeStyle=color;
