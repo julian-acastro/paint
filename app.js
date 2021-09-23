@@ -62,6 +62,10 @@ function getScaledDim(img, maxWidth, maxHeight) {
         scaled.width = (scaled.width * maxHeight) / scaled.height; 
         scaled.height=maxHeight;
     }
+    else{
+        scaled.width = (scaled.width * maxHeight) / scaled.height; 
+        scaled.height=maxHeight;
+    }
 }
     return scaled;
 }
