@@ -55,13 +55,13 @@ function getScaledDim(img, maxWidth, maxHeight) {
         width: img.width,
         height: img.height
     }
+    
     if (scaled.width > maxWidth) {
          maxWidth = scaled.width;
      
     }
     if (scaled.height > maxHeight) {
-        maxHeight =scaled.height;
-      
+        scaled.height=maxHeight;    
     }
     return scaled;
 }
