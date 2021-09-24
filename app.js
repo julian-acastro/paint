@@ -1,8 +1,8 @@
 "use strict";
-//letIABLES GLOBALES
-let canvas = document.getElementById("canvas");//regresa el nodo DOM para el elemento <canvas>
-let ctx = canvas.getContext('2d');//acceder al contexto de dibujo 
-let rect=canvas.getBoundingClientRect();// devuelve el tamaño del canvas y su posición relativa respecto a la ventana de visualización 
+
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext('2d');
+let rect=canvas.getBoundingClientRect();
 let x=0;
 let y=0;
 let drawing = false;
@@ -50,6 +50,7 @@ function handleFiles(e) {
 }
 
 function reloadImg(){
+
     ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);  
 }
 
@@ -123,6 +124,7 @@ function cleanUp() {
     ctx.canvas.height = 500;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     document.getElementById("upload").value = "";  
+    img = new Image();
   }
 
 
