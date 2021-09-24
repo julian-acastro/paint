@@ -49,6 +49,10 @@ function handleFiles(e) {
     reader.readAsDataURL(file);
 }
 
+function reloadImg(){
+    ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);  
+}
+
 // devuelve el objeto de dimensiones escaladas
 function getScaledDim(img, maxWidth, maxHeight) {
     let scaled = {
@@ -77,16 +81,21 @@ canvas.addEventListener('mousedown', function(evento){
     y=evento.clientY - rect.top;
     drawing=true;
 })
+// Me aseguro que solamente dibuje dentro del canvas, incluso con el boton apretado
+canvas.addEventListener('mouseleave', function() {
+   drawing=false;
+  
+});
 
 canvas.addEventListener('mousemove', function(evento){
     rect=canvas.getBoundingClientRect();
     //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga drawing
-    if(drawing===true){
+    if(drawing===true){ 
         let x2=evento.clientX - rect.left;
         let y2=evento.clientY -rect.top;
         drawLine(x,y,x2,y2);
         x=x2;
-        y=y2;
+        y=y2;       
     }  
 
 });
@@ -110,6 +119,8 @@ function changeColor(c){
 clear.addEventListener('click',cleanUp);
 
 function cleanUp() {
+    ctx.canvas.width = 500;
+    ctx.canvas.height = 500;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     document.getElementById("upload").value = "";  
   }

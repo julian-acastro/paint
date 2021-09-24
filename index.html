@@ -22,6 +22,7 @@
                     <li><input type="button" name="negativeFilter" value="Negativo" id="negativeFilter" onclick="negativeFilter();"></li>
                     <li><input type="button" name="saturationFilter" value="Saturacion" id="saturationFilter" onclick="saturationFilter();"> </li>
                     <li><input type="button" name="blurFilter" value="Blur" onclick="blurFilter();"></li>
+
                 </ul>                
             </nav>
             <div class="range">
@@ -31,7 +32,10 @@
                 <canvas id="canvas" width="500" height="500"></canvas>
             </div>
             <div>
-                Sube una imagen: <input type="file" id="upload" accept=".jpg, .jpeg, .png" />
+               <label class="pepe">Sube una imagen: <input type="file" id="upload" accept=".jpg, .jpeg, .png" />
+                  
+                <input type="button" name="reload" value="Reacargar" onclick="reloadImg();">
+            </label>
             </div>
         <script src="app.js"></script>
         </body>
