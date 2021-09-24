@@ -10,9 +10,9 @@
         <body>
             <nav id="navbar">
                 <ul>
-                    <li><input type="color" name="color" value="#000000" id="color" oninput="cambiarColor(this);"></li>
-                    <li><input type="button" name="pencil" value="Lapiz" id="pencil" onclick="usarLapiz(this);"></li>
-                    <li><input type="button" name="rubber"  value="Goma" id="rubber" onclick="borrar(this);"></li>
+                    <li><input type="color" name="color" value="#000000" id="color" oninput="changeColor(this);"></li>
+                    <li><input type="button" name="pencil" value="Lapiz" id="pencil" onclick="usePencil(this);"></li>
+                    <li><input type="button" name="rubber"  value="Goma" id="rubber" onclick="erase(this);"></li>
                     <li><input type="button" name="clear" value="Limpiar" id="clear" onclick="clear(this);"></li>
                     <li><input type="button" name="saveFile" value="Guardar" id="download"></li>
                     <li><input type="button" name="binarieFilter" value="Binario" id="binarieFilter" onclick="binarieFilter();"></li>
@@ -20,7 +20,7 @@
                     <li><input type="button" name="brightFilter" value="Brillo" id="brightFilter" onclick="brightFilter(10);"></li>
                     <li><input type="button" name="sepiaFilter" value="Sepia" id="sepiaFilter" onclick="sepiaFilter();"></li>
                     <li><input type="button" name="negativeFilter" value="Negativo" id="negativeFilter" onclick="negativeFilter();"></li>
-                    <li><input type="button" name="saturationFilter" value="Saturacion" id="saturationFilter" onclick="saturationFilter();"value="Saturacion"> </li>
+                    <li><input type="button" name="saturationFilter" value="Saturacion" id="saturationFilter" onclick="saturationFilter();"> </li>
                     <li><input type="button" name="blurFilter" value="Blur" onclick="blurFilter();"></li>
                 </ul>                
             </nav>
