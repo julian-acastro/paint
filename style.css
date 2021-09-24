@@ -22,7 +22,7 @@
     display: inline-block;
     list-style: none;
   }
-  button, input[type="button"], input[type=file]{
+  button, input[type="button"], input[type=file], .pepe{
     background-color: rgb(177, 230, 147);
     border: none;
     border-radius: 5px;
@@ -39,3 +39,4 @@
     color: rgb(177, 230, 147);
     border: rgb(177, 230, 147);
   }
+  

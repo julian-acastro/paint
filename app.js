@@ -1,19 +1,19 @@
 "use strict";
-//VARIABLES GLOBALES
+//letIABLES GLOBALES
 let canvas = document.getElementById("canvas");//regresa el nodo DOM para el elemento <canvas>
 let ctx = canvas.getContext('2d');//acceder al contexto de dibujo 
 let rect=canvas.getBoundingClientRect();// devuelve el tamaño del canvas y su posición relativa respecto a la ventana de visualización 
 let x=0;
 let y=0;
-let dibujando = false;
+let drawing = false;
 let cursor=document.getElementById("cursor");
 let color=document.getElementById("color");
-let goma = document.getElementById("goma");
-let limpiar = document.getElementById("clear");
-let lapiz = document.getElementById("lapiz");
-let blanco = "#ffffff";
-let file = document.getElementById('cargarImg');
-var img = new Image();
+let rubber = document.getElementById("rubber");
+let clear = document.getElementById("clear");
+let pencil = document.getElementById("pencil");
+let white = "#ffffff";
+let file = document.getElementById('upload');
+let img = new Image();
 let downloadBtn=document.getElementById("download");
 
 window.onload = function() {
@@ -30,7 +30,7 @@ function handleFiles(e) {
     
     let reader  = new FileReader();
     let file = e.target.files[0];
-    // cargar a la imagen para obtener su ancho / alto
+    // cargar a la imagen para obtener su wide / alto
     
     img.onload = function() {
         // configurar dimensiones escaladas
@@ -49,6 +49,10 @@ function handleFiles(e) {
     reader.readAsDataURL(file);
 }
 
+function reloadImg(){
+    ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);  
+}
+
 // devuelve el objeto de dimensiones escaladas
 function getScaledDim(img, maxWidth, maxHeight) {
     let scaled = {
@@ -57,7 +61,7 @@ function getScaledDim(img, maxWidth, maxHeight) {
     }
     
     if (scaled.height > maxHeight) {//si el alto de la img es mayor al alto del canvas       
-        if (scaled.width > maxWidth) {//si el ancho de la img es mayor al ancho del canvas
+        if (scaled.width > maxWidth) {//si el wide de la img es mayor al wide del canvas
 
         scaled.width = (scaled.width * maxHeight) / scaled.height; 
         scaled.height=maxHeight;
@@ -75,66 +79,73 @@ canvas.addEventListener('mousedown', function(evento){
     rect=canvas.getBoundingClientRect();
     x=evento.clientX - rect.left;
     y=evento.clientY - rect.top;
-    dibujando=true;
+    drawing=true;
 })
+// Me aseguro que solamente dibuje dentro del canvas, incluso con el boton apretado
+canvas.addEventListener('mouseleave', function() {
+   drawing=false;
+  
+});
 
 canvas.addEventListener('mousemove', function(evento){
     rect=canvas.getBoundingClientRect();
-    //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga dibujando
-    if(dibujando===true){
+    //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga drawing
+    if(drawing===true){ 
         let x2=evento.clientX - rect.left;
         let y2=evento.clientY -rect.top;
-        dibujarLinea(x,y,x2,y2);
+        drawLine(x,y,x2,y2);
         x=x2;
-        y=y2;
+        y=y2;       
     }  
 
 });
 canvas.addEventListener('mouseup', function(evento){
     rect=canvas.getBoundingClientRect();
-    if(dibujando===true){
+    if(drawing===true){
         let x2=evento.clientX - rect.left;
         let y2=evento.clienty -rect.top;
-        dibujarLinea(x,y,x2,y2);
+        drawLine(x,y,x2,y2);
         x=0;
         y=0;
-        dibujando=false;
+        drawing=false;
     }
 });
 
-function cambiarColor(c){
+function changeColor(c){
     color=c.value; 
    
 }
 
-limpiar.addEventListener('click', clear);
+clear.addEventListener('click',cleanUp);
 
-function clear() {
+function cleanUp() {
+    ctx.canvas.width = 500;
+    ctx.canvas.height = 500;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    document.getElementById("cargarImg").value = "";
+    document.getElementById("upload").value = "";  
   }
 
 
-lapiz.addEventListener('click', usarLapiz);
+pencil.addEventListener('click', usePencil);
 
-function usarLapiz(){
+function usePencil(){
     color = document.getElementById('color').value;
 }
 
-goma.addEventListener('click', borrar);
+rubber.addEventListener('click', erase);
 
-function borrar(){
-    color = blanco;
+function erase(){
+    color = white;
   
 }
 
-function anchoCursor(ancho){
-    cursor = ancho.value;
-    document.getElementById("valor").innerHTML=ancho.value;
+function lineWidth(wide){
+    cursor = wide.value;
+    document.getElementById("value").innerHTML=wide.value;
 }
 
 
-function dibujarLinea(x1,y1,x2,y2){
+function drawLine(x1,y1,x2,y2){
     ctx.beginPath();
     ctx.lineCap = 'round';//trazo circular
     ctx.strokeStyle=color;
@@ -145,7 +156,7 @@ function dibujarLinea(x1,y1,x2,y2){
     ctx.closePath();
 }
 
-//FILTROS se deben aplicar a la imagen original?
+//FILTROS
 
 function getRed(imageData, x, y) {
     let index = (x + y * imageData.width) * 4;
@@ -161,19 +172,20 @@ function getBlue(imageData, x, y) {
 }
 
 function binarieFilter() {
-    var imgObj = document.getElementById('canvas');
+    
+    let imgObj = document.getElementById('canvas');
      
-    var imgW = imgObj.width;
-    var imgH = imgObj.height;
-    var breakPoint= 127;
+    let imgW = imgObj.width;
+    let imgH = imgObj.height;
+    let breakPoint= 127;
      
     ctx.drawImage(imgObj, 0, 0);
-    var imgPixels = ctx.getImageData(0, 0, imgW, imgH);
+    let imgPixels = ctx.getImageData(0, 0, imgW, imgH);
      
-    for(var y = 0; y < imgPixels.height; y++){
-        for(var x = 0; x < imgPixels.width; x++){
-            var i = (y * 4) * imgPixels.width + x * 4;
-            var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+    for(let y = 0; y < imgPixels.height; y++){
+        for(let x = 0; x < imgPixels.width; x++){
+            let i = (y * 4) * imgPixels.width + x * 4;
+            let avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
             if(avg>breakPoint){
                 imgPixels.data[i] = 255; 
                 imgPixels.data[i + 1] = 255; 
@@ -188,17 +200,17 @@ function binarieFilter() {
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
 function brightFilter(bright) {
-    var imgObj = document.getElementById('canvas');
+    let imgObj = document.getElementById('canvas');
      
-    var imgW = imgObj.width;
-    var imgH = imgObj.height;
+    let imgW = imgObj.width;
+    let imgH = imgObj.height;
      
     ctx.drawImage(imgObj, 0, 0);
-    var imgPixels = ctx.getImageData(0, 0, imgW, imgH);
+    let imgPixels = ctx.getImageData(0, 0, imgW, imgH);
      
-    for(var y = 0; y < imgPixels.height; y++){
-        for(var x = 0; x < imgPixels.width; x++){
-            var i = (y * 4) * imgPixels.width + x * 4;
+    for(let y = 0; y < imgPixels.height; y++){
+        for(let x = 0; x < imgPixels.width; x++){
+            let i = (y * 4) * imgPixels.width + x * 4;
             if((imgPixels.data[i] +  bright)> 255)
                 imgPixels.data[i] = 255; 
             else
@@ -223,10 +235,10 @@ function negativeFilter(){
     let pixels = imageData.data;//contiene los datos de píxeles del objeto
     let numPixels = imageData.width * imageData.height;//total de píxeles que componen nuestra imagen (resultado de multiplicar la anchura de nuestra imagen por su altura)
 
-for ( var i = 0; i < numPixels; i++ ) {//iterar por cada pixel y sus tres valores rgb asociados
-    var r = pixels[ i * 4 ];
-    var g = pixels[ i * 4 + 1 ];
-    var b = pixels[ i * 4 + 2 ];
+for ( let i = 0; i < numPixels; i++ ) {//iterar por cada pixel y sus tres valores rgb asociados
+    let r = pixels[ i * 4 ];
+    let g = pixels[ i * 4 + 1 ];
+    let b = pixels[ i * 4 + 2 ];
 
     //Cambiar cada componente de un color al valor opuesto de la escala de color.
     pixels[ i * 4 ] = 255 - r;
@@ -257,16 +269,17 @@ for ( let i = 0; i < numPixels; i++ ) {
     pixel[ i * 4 + 2 ] = ( r * .272 ) + ( g *.534 ) + ( b * .131 );
 }
 
-ctx.putImageData( imageData, 0, 0 );//Pone los datos de la imagen (de un objeto ImageData especificado) de nuevo en el lienzo
+ctx.putImageData(imageData, 0, 0 );//Pone los datos de la imagen (de un objeto ImageData especificado) de nuevo en el lienzo
 
 }
 
 function blackAndWhite() {
+   
         let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
         let pixels = imageData.data;
         let numPixels = imageData.width * imageData.height;
  
-    for ( var i = 0; i < numPixels; i++ ) {
+    for ( let i = 0; i < numPixels; i++ ) {
         let r = pixels[ i * 4 ];
         let g = pixels[ i * 4 + 1 ];
         let b = pixels[ i * 4 + 2 ];
@@ -282,6 +295,7 @@ function blackAndWhite() {
 };
 
 function saturationFilter(){
+    
     let sat = 100;
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
 		let x, y, index;
@@ -304,7 +318,7 @@ function blurFilter() {
     let r, g, b;
     for (let x = 1; x < canvas.width - 1; x++) {
         for (let y = 1; y < canvas.height - 1; y++) {
-            var i = (y * 4) * imageData.width + x * 4;
+            let i = (y * 4) * imageData.width + x * 4;
             r = Math.floor((getRed(imageData, x, y) + getRed(imageData, x - 1, y) + getRed(imageData, x + 1, y) + getRed(imageData, x - 1, y + 1) + getRed(imageData, x - 1, y - 1) + getRed(imageData, x, y + 1) + getRed(imageData, x, y - 1) + getRed(imageData, x + 1, y + 1) + getRed(imageData, x + 1, y - 1)) / 9);
             g = Math.floor((getGreen(imageData, x, y) + getGreen(imageData, x - 1, y) + getGreen(imageData, x + 1, y) + getGreen(imageData, x - 1, y + 1) + getGreen(imageData, x - 1, y - 1) + getGreen(imageData, x, y + 1) + getGreen(imageData, x, y - 1) + getGreen(imageData, x + 1, y + 1) + getGreen(imageData, x + 1, y - 1)) / 9);
             b = Math.floor((getBlue(imageData, x, y) + getBlue(imageData, x - 1, y) + getBlue(imageData, x + 1, y) + getBlue(imageData, x - 1, y + 1) + getBlue(imageData, x - 1, y - 1) + getBlue(imageData, x, y + 1) + getBlue(imageData, x, y - 1) + getBlue(imageData, x + 1, y + 1) + getBlue(imageData, x + 1, y - 1)) / 9);
@@ -317,7 +331,7 @@ function blurFilter() {
 }
 
 downloadBtn.addEventListener('click', function(){
-    var a=document.createElement("a");
+    let a=document.createElement("a");
     document.body.appendChild(a)
     a.href=canvas.toDataURL("image/jpeg");
     a.download="mi-dibujito.jpg";
