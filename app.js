@@ -24,9 +24,10 @@ downloadBtn.addEventListener('click', function(){
 let file = document.getElementById('upload');
 let img = new Image();
 
-window.onload = function() {// establecer las dimensiones originales del lienzo como máximo
-    
+window.onload = function() {//evento de finalizacion de la carga del archivo
     file.addEventListener('change', handleFiles, false);
+    
+    // establece las dimensiones originales del lienzo como máximo
     canvas.dataMaxWidth = canvas.width;
     canvas.dataMaxHeight = canvas.height;
 }
@@ -35,15 +36,15 @@ function handleFiles(e) {
     
     let reader  = new FileReader();
     let file = e.target.files[0];
-    // cargar a la imagen para obtener su wide / alto
+    
     
     img.onload = function() {
-        // configurar dimensiones escaladas
+        // configurar dimensiones
         let scaled = getScaledDim(img, ctx.canvas.dataMaxWidth, ctx.canvas.dataMaxHeight);
         // escalar lienzo a imagen
         ctx.canvas.width = scaled.width;
         ctx.canvas.height = scaled.height;
-        // draw image
+        // dibuja la imagen
         ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
     }
     // esto es para configurar la carga de la imagen
@@ -59,7 +60,7 @@ function reloadImg(){
     ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);  
 }
 
-
+//Esta funcion escala las dimensiones de la imagen al lienzo de forma que no se deforme la imagen
 function getScaledDim(img, maxWidth, maxHeight) {
     let scaled = {
         width: img.width,
@@ -288,7 +289,7 @@ for ( let i = 0; i < numPixels; i++ ) {
     pixel[ i * 4 + 1 ] = 255 - g;
     pixel[ i * 4 + 2 ] = 255 - b;
 
-    //cada color de píxel se transforma de la siguiente manera:
+    //cada color de píxel se transforma de la siguiente manera, utilizando este algoritmo
     pixel[ i * 4 ] = ( r * .393 ) + ( g *.769 ) + ( b * .189 );
     pixel[ i * 4 + 1 ] = ( r * .349 ) + ( g *.686 ) + ( b * .168 );
     pixel[ i * 4 + 2 ] = ( r * .272 ) + ( g *.534 ) + ( b * .131 );
@@ -320,23 +321,27 @@ function blackAndWhite() {
     ctx.putImageData( imageData, 0, 0 );
 };
 
+
+//El algoritmo se compone de dos pasos: calculo del factor a partir de un valor dado(sat).
+//Cálculo del valor de cada pixel tras aplicar el factor anterior.
 function saturationFilter(){
-    
     let sat = 100;
+    
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
-		let x, y, index;
-		for(x = 0; x < imageData.width; x++){
-			for(y = 0; y < imageData.height; y++){
-				let r = getRed(imageData, x, y);
-				let g = getGreen(imageData, x, y);
-				let b = getBlue(imageData, x, y);
-				index = (x + y * imageData.width) * 4;
-				let factor = (259*(sat+255))/(255*(259-sat));
-				imageData.data[index+0] = factor*(r-128)+128;
-				imageData.data[index+1] = factor*(g-128)+128;
-				imageData.data[index+2] = factor*(b-128)+128;
-			}
-		}
+    let pixels = imageData.data;
+    let numPixels = imageData.width * imageData.height;
+
+    for ( let i = 0; i < numPixels; i++ ) {
+        let r = pixels[ i * 4 ];
+        let g = pixels[ i * 4 + 1 ];
+        let b = pixels[ i * 4 + 2 ];
+        let factor = (259*(sat+255))/(255*(259-sat));
+				
+        pixels[ i * 4 ] = factor*(r-128)+128;
+		pixels[ i * 4 + 1 ] = factor*(g-128)+128;
+		pixels[ i * 4 + 2 ] = factor*(b-128)+128;
+	}
+		
 		ctx.putImageData(imageData, 0, 0);		
 }
 //filtro q recorre el lienzo y por cada pixel saca el promedio de sus 8 allegados y el y se le setea a el mismo.
