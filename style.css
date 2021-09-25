@@ -22,7 +22,7 @@
     display: inline-block;
     list-style: none;
   }
-  button, input[type="button"], input[type=file], .pepe{
+  button, input[type="button"], input[type=file], .uploadImg{
     background-color: rgb(177, 230, 147);
     border: none;
     border-radius: 5px;
@@ -38,5 +38,8 @@
     background: white;
     color: rgb(177, 230, 147);
     border: rgb(177, 230, 147);
+  }
+  #reloadImage{
+    font-weight: bold;
   }
   
