@@ -3,25 +3,29 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext('2d');
 let rect=canvas.getBoundingClientRect();
-let x=0;
-let y=0;
-let drawing = false;
-let cursor=document.getElementById("cursor");
-let color=document.getElementById("color");
-let rubber = document.getElementById("rubber");
-let clear = document.getElementById("clear");
-let pencil = document.getElementById("pencil");
-let white = "#ffffff";
+
+/******************************************************************************************************* */
+
+//zurdo
+let downloadBtn=document.getElementById("download");
+downloadBtn.addEventListener('click', function(){
+    let a=document.createElement("a");
+    document.body.appendChild(a)
+    a.href=canvas.toDataURL("image/jpeg");
+    a.download="mi-dibujito.jpg";
+    a.click();
+    document.body.removeChild(a);
+
+});
+
+/******************************************************************************************************* */
+
 let file = document.getElementById('upload');
 let img = new Image();
-let downloadBtn=document.getElementById("download");
 
-window.onload = function() {
+window.onload = function() {// establecer las dimensiones originales del lienzo como máximo
     
     file.addEventListener('change', handleFiles, false);
-    
-    // establecer las dimensiones originales del lienzo como máximo
-  
     canvas.dataMaxWidth = canvas.width;
     canvas.dataMaxHeight = canvas.height;
 }
@@ -49,20 +53,20 @@ function handleFiles(e) {
     reader.readAsDataURL(file);
 }
 
+//Funcion que se encarga de volver a dibujar la imagen original en el lienzo cuando quitamos un filtro
 function reloadImg(){
-
     ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);  
 }
 
-// devuelve el objeto de dimensiones escaladas
+
 function getScaledDim(img, maxWidth, maxHeight) {
     let scaled = {
         width: img.width,
         height: img.height
     }
     
-    if (scaled.height > maxHeight) {//si el alto de la img es mayor al alto del canvas       
-        if (scaled.width > maxWidth) {//si el wide de la img es mayor al wide del canvas
+    if (scaled.height > maxHeight) {      
+        if (scaled.width > maxWidth) {
 
         scaled.width = (scaled.width * maxHeight) / scaled.height; 
         scaled.height=maxHeight;
@@ -75,22 +79,28 @@ function getScaledDim(img, maxWidth, maxHeight) {
     return scaled;
 }
 
-  
+/******************************************************************************************************* */ 
+
+let x=0;
+let y=0;
+let drawing = false;
+
+//zurdo
 canvas.addEventListener('mousedown', function(evento){
     rect=canvas.getBoundingClientRect();
     x=evento.clientX - rect.left;
     y=evento.clientY - rect.top;
     drawing=true;
 })
-// Me aseguro que solamente dibuje dentro del canvas, incluso con el boton apretado
+
+//Funcion que me asegura que solamente dibuje dentro del contexto, incluso cuando me vaya fuera de este con el boton apretado
 canvas.addEventListener('mouseleave', function() {
-   drawing=false;
-  
+   drawing=false; 
 });
 
+//zurdo
 canvas.addEventListener('mousemove', function(evento){
     rect=canvas.getBoundingClientRect();
-    //deberia ir un control para controlar que cuando se siga presionando el mouse fuera del canvas no siga drawing
     if(drawing===true){ 
         let x2=evento.clientX - rect.left;
         let y2=evento.clientY -rect.top;
@@ -98,8 +108,9 @@ canvas.addEventListener('mousemove', function(evento){
         x=x2;
         y=y2;       
     }  
-
 });
+
+//zurdo
 canvas.addEventListener('mouseup', function(evento){
     rect=canvas.getBoundingClientRect();
     if(drawing===true){
@@ -112,41 +123,50 @@ canvas.addEventListener('mouseup', function(evento){
     }
 });
 
+/******************************************************************************************************* */
+
+//Cambia el valor del color del cursor
+let color=document.getElementById("color");
 function changeColor(c){
     color=c.value; 
-   
 }
 
+//Limpia el contexto, devolviendole las dimensiones originales del canvas.
+//Cambiamos el valor del file cargado a vacio, para poder volver a cargar la misma imagen.
+//zurdo, lo del new image
+let clear = document.getElementById("clear");
 clear.addEventListener('click',cleanUp);
-
 function cleanUp() {
     ctx.canvas.width = 500;
     ctx.canvas.height = 500;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     document.getElementById("upload").value = "";  
     img = new Image();
-  }
+}
 
-
+//El color del cursor se vuelve el valor previamente elegido por el usuario
+let pencil = document.getElementById("pencil");
 pencil.addEventListener('click', usePencil);
-
 function usePencil(){
     color = document.getElementById('color').value;
 }
 
+//El color del cursor se vuelve blanco para funcionar como una goma de borrar
+let white = "#ffffff";
+let rubber = document.getElementById("rubber");
 rubber.addEventListener('click', erase);
-
 function erase(){
-    color = white;
-  
+    color = white;  
 }
 
+//Toma el valor del ancho del cursor, y a su vez cambia el contenido html del elemento range
+let cursor=document.getElementById("cursor");
 function lineWidth(wide){
     cursor = wide.value;
-    document.getElementById("value").innerHTML=wide.value;
+    document.getElementById("value").innerHTML = wide.value;
 }
 
-
+//zurdo 
 function drawLine(x1,y1,x2,y2){
     ctx.beginPath();
     ctx.lineCap = 'round';//trazo circular
@@ -158,8 +178,9 @@ function drawLine(x1,y1,x2,y2){
     ctx.closePath();
 }
 
-//FILTROS
+/******************************************************************************************************* */
 
+//Funciones que permiten acceder a los componentes R G B de cada pixel
 function getRed(imageData, x, y) {
     let index = (x + y * imageData.width) * 4;
     return imageData.data[index+0];
@@ -201,6 +222,7 @@ function binarieFilter() {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
+
 function brightFilter(bright) {
     let imgObj = document.getElementById('canvas');
      
@@ -231,7 +253,6 @@ function brightFilter(bright) {
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
 
-
 function negativeFilter(){
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);//accedo a los pixeles que almacena el imageData en un array 
     let pixels = imageData.data;//contiene los datos de píxeles del objeto
@@ -248,14 +269,14 @@ for ( let i = 0; i < numPixels; i++ ) {//iterar por cada pixel y sus tres valore
     pixels[ i * 4 + 2 ] = 255 - b;
 }
 
-ctx.putImageData( imageData, 0, 0 );
+ctx.putImageData( imageData, 0, 0 );//Vuelve a redibujar la imagen volcando los nuevos píxeles ya modificados. 
   
 }
 
 function sepiaFilter(){
-    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);//accedo a los pixeles que almacena el imageData en un array 
-    let pixel = imageData.data;//Devuelve un objeto conteniendo todos los datos del objeto ImageData.
-    let numPixels = imageData.width * imageData.height;//cantidad de pixeles que componen la imagen
+    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height); 
+    let pixel = imageData.data;
+    let numPixels = imageData.width * imageData.height;
 
 for ( let i = 0; i < numPixels; i++ ) {
     let r = pixel[ i * 4 ];
@@ -266,12 +287,13 @@ for ( let i = 0; i < numPixels; i++ ) {
     pixel[ i * 4 + 1 ] = 255 - g;
     pixel[ i * 4 + 2 ] = 255 - b;
 
+    //cada color de píxel se transforma de la siguiente manera:
     pixel[ i * 4 ] = ( r * .393 ) + ( g *.769 ) + ( b * .189 );
     pixel[ i * 4 + 1 ] = ( r * .349 ) + ( g *.686 ) + ( b * .168 );
     pixel[ i * 4 + 2 ] = ( r * .272 ) + ( g *.534 ) + ( b * .131 );
 }
 
-ctx.putImageData(imageData, 0, 0 );//Pone los datos de la imagen (de un objeto ImageData especificado) de nuevo en el lienzo
+ctx.putImageData(imageData, 0, 0 );
 
 }
 
@@ -286,8 +308,9 @@ function blackAndWhite() {
         let g = pixels[ i * 4 + 1 ];
         let b = pixels[ i * 4 + 2 ];
  
-        let grey = ( r + g + b ) / 3;//promedio de los valores de rgb originales
- 
+        let grey = ( r + g + b ) / 3;//promedio de los valores de R G B originales
+        
+        //cada color de píxel se transforma en el gris, resultado del promedio de los valoes R G B originlaes de cada pixel
         pixels[ i * 4 ] = grey;
         pixels[ i * 4 + 1 ] = grey;
         pixels[ i * 4 + 2 ] = grey;
@@ -332,12 +355,3 @@ function blurFilter() {
     ctx.putImageData(imageData, 0, 0);
 }
 
-downloadBtn.addEventListener('click', function(){
-    let a=document.createElement("a");
-    document.body.appendChild(a)
-    a.href=canvas.toDataURL("image/jpeg");
-    a.download="mi-dibujito.jpg";
-    a.click();
-    document.body.removeChild(a);
-
-});
