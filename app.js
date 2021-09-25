@@ -60,7 +60,7 @@ function reloadImg(){
     ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);  
 }
 
-//Esta funcion escala las dimenciones de la imagen al lienzo de forma que no se deforme la imagen
+//Esta funcion escala las dimensiones de la imagen al lienzo de forma que no se deforme la imagen
 function getScaledDim(img, maxWidth, maxHeight) {
     let scaled = {
         width: img.width,
