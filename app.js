@@ -6,11 +6,12 @@ let rect=canvas.getBoundingClientRect();
 
 /******************************************************************************************************* */
 
-//zurdo
+//funcionalidad que descarga en formato jpg el contenido del canvas
 let downloadBtn=document.getElementById("download");
 downloadBtn.addEventListener('click', function(){
+    //crea un link de descarga y lo ejecuta
     let a=document.createElement("a");
-    document.body.appendChild(a)
+    document.body.appendChild(a);
     a.href=canvas.toDataURL("image/jpeg");
     a.download="mi-dibujito.jpg";
     a.click();
@@ -86,7 +87,7 @@ let x=0;
 let y=0;
 let drawing = false;
 
-//zurdo
+//Funcion que esta al pendiente de click dentro del canvas
 canvas.addEventListener('mousedown', function(evento){
     rect=canvas.getBoundingClientRect();
     x=evento.clientX - rect.left;
@@ -94,12 +95,12 @@ canvas.addEventListener('mousedown', function(evento){
     drawing=true;
 })
 
-//Funcion que me asegura que solamente dibuje dentro del contexto, incluso cuando me vaya fuera de este con el boton apretado
+//Funcion que me asegura que solamente dibuje dentro del canvas, incluso cuando me vaya fuera de este con el boton apretado
 canvas.addEventListener('mouseleave', function() {
    drawing=false; 
 });
 
-//zurdo
+//Funcion que dibuja dentro del contexto mientras Drawing sea verdadero
 canvas.addEventListener('mousemove', function(evento){
     rect=canvas.getBoundingClientRect();
     if(drawing===true){ 
@@ -111,7 +112,7 @@ canvas.addEventListener('mousemove', function(evento){
     }  
 });
 
-//zurdo
+//Funcion que esta al pendiente de que el click del mouse deje de estar precionado para detener el dibujo
 canvas.addEventListener('mouseup', function(evento){
     rect=canvas.getBoundingClientRect();
     if(drawing===true){
@@ -134,7 +135,7 @@ function changeColor(c){
 
 //Limpia el contexto, devolviendole las dimensiones originales del canvas.
 //Cambiamos el valor del file cargado a vacio, para poder volver a cargar la misma imagen.
-//zurdo, lo del new image
+//al limpiar el lienzo y restructurarlo reseteamos tambien la imagen
 let clear = document.getElementById("clear");
 clear.addEventListener('click',cleanUp);
 function cleanUp() {
@@ -167,7 +168,7 @@ function lineWidth(wide){
     document.getElementById("value").innerHTML = wide.value;
 }
 
-//zurdo 
+//Funcion que crea una secuencia de circulos entre 2 puntos de la pantalla
 function drawLine(x1,y1,x2,y2){
     ctx.beginPath();
     ctx.lineCap = 'round';//trazo circular
