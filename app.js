@@ -194,7 +194,7 @@ function getBlue(imageData, x, y) {
     let index = (x + y * imageData.width) * 4;
     return imageData.data[index+2];
 }
-
+//Filtro que saca promedio de los colores y setea los pixeles a blanco o negro segun de cual este mas cerca el reultado
 function binarieFilter() {
     
     let imgObj = document.getElementById('canvas');
@@ -223,7 +223,7 @@ function binarieFilter() {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
-
+//funcion que le suma a cada Red Green y Blue un valor y volverlo mas cercano a blanco
 function brightFilter(bright) {
     let imgObj = document.getElementById('canvas');
      
@@ -253,7 +253,7 @@ function brightFilter(bright) {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 }
-
+//filtro que recorre el lienzo y setea los pixeles al valor inverso actual.
 function negativeFilter(){
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);//accedo a los pixeles que almacena el imageData en un array 
     let pixels = imageData.data;//contiene los datos de píxeles del objeto
@@ -339,6 +339,7 @@ function saturationFilter(){
 		}
 		ctx.putImageData(imageData, 0, 0);		
 }
+//filtro q recorre el lienzo y por cada pixel saca el promedio de sus 8 allegados y el y se le setea a el mismo.
 function blurFilter() {
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let r, g, b;
