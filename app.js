@@ -24,7 +24,7 @@ downloadBtn.addEventListener('click', function(){
 let file = document.getElementById('upload');
 let img = new Image();
 
-window.onload = function() {
+window.onload = function() {//evento de finalizacion de la carga del archivo
     file.addEventListener('change', handleFiles, false);
     
     // establece las dimensiones originales del lienzo como máximo
